@@ -4,6 +4,9 @@ class Admin::TutorialsController < Admin::BaseController
   end
 
   def create
+    tutorial = Tutorial.create(new_tutorial_params)
+
+    redirect_to edit_admin_tutorial_path(tutorial)
   end
 
   def new
@@ -21,5 +24,9 @@ class Admin::TutorialsController < Admin::BaseController
   private
   def tutorial_params
     params.require(:tutorial).permit(:tag_list)
+  end
+
+  def new_tutorial_params
+    params.require(:tutorial).permit(:title, :description, :thumbnail)
   end
 end

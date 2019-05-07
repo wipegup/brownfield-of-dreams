@@ -1,4 +1,4 @@
-# Simple class for parsing data from api
+# Parses data from github API retrieving repo data
 
 class Repo
   attr_reader :name, :link

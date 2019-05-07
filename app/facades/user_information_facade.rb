@@ -1,5 +1,5 @@
+# Collects data for a user for passing to user#show ('/dashboard')
 class UserInformationFacade
-
   def initialize(current_user)
     @current_user = current_user
   end
@@ -11,6 +11,7 @@ class UserInformationFacade
   end
 
   private
+  
     def git_repo_data
       @git_repo_data ||= github_service.get_repos
     end

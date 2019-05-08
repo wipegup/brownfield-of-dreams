@@ -11,18 +11,18 @@
     <% end %>
   </ul>
 </div>
-
-<div class="col col-8">
-  <div class="title-bookmark">
-    <h3><%= @facade.current_video.title %></h3>
-    <div class="bookmarks-btn">
-      <% if current_user %>
-      <%= button_to "Bookmark", user_videos_path(video_id: @facade.current_video.id, user_id: current_user.id), method: :post, class: "btn btn-outline mb1 teal" %>
-      <% else %>
-      <%= link_to "Bookmark", login_path, class: "btn btn-outline mb1 teal" %>
-      <% end %>
+<% if @facade.videos != [] %>
+  <div class="col col-8">
+    <div class="title-bookmark">
+      <h3><%= @facade.current_video.title %></h3>
+      <div class="bookmarks-btn">
+        <% if current_user %>
+        <%= button_to "Bookmark", user_videos_path(video_id: @facade.current_video.id, user_id: current_user.id), method: :post, class: "btn btn-outline mb1 teal" %>
+        <% else %>
+        <%= link_to "Bookmark", login_path, class: "btn btn-outline mb1 teal" %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
   <div id="player">
     <script src="https://www.youtube.com/player_api"></script>
@@ -65,5 +65,6 @@
     <%= link_to "More", "#", "data-action" => "click->tutorials#showDescription", id: @facade.current_video.id, class: "show-link"%>
   </p>
 </div>
+<%end%>
 
 </main>

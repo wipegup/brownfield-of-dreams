@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'vister' do
+describe 'vistor' do
   it 'cannot see "classroom" tutorials' do
     non_class_tutorials = create_list(:tutorial, 2)
     class_tutorials = create_list(:tutorial, 2, classroom: true)

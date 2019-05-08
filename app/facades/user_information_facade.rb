@@ -25,15 +25,15 @@ class UserInformationFacade
   private
 
   def git_follower_data
-    @git_follower_data ||= github_service.retrieve_followers
+    @git_follower_data ||= github_service.retrieve('followers')
   end
 
   def git_following_data
-    @git_following_data ||= github_service.retrieve_following
+    @git_following_data ||= github_service.retrieve('following')
   end
 
   def git_repo_data
-    @git_repo_data ||= github_service.get_repos
+    @git_repo_data ||= github_service.retrieve('repos')
   end
 
   def github_service

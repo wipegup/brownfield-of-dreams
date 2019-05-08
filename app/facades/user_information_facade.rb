@@ -31,6 +31,7 @@ class UserInformationFacade
   def git_following_data
     @git_following_data ||= github_service.retrieve_following
   end
+
   def git_repo_data
     @git_repo_data ||= github_service.get_repos
   end

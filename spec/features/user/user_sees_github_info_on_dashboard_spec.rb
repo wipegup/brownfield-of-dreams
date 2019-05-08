@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'A registered user',:vcr do
+describe 'A registered user', :vcr do
   before :each do
     @user = create(:user)
 
@@ -10,8 +10,7 @@ describe 'A registered user',:vcr do
     visit dashboard_path
   end
 
-  it 'can see five repos'do
-
+  it 'can see five repos' do
     within('#github-repos') do
       expect(page).to have_css('.repo-link', count: 5)
       within(first('.repo-link')) do
@@ -21,7 +20,6 @@ describe 'A registered user',:vcr do
   end
 
   it 'can see all followers' do
-    save_and_open_page
     within('#github-followers') do
       expect(page).to have_css('.follower-link')
       within(first('.follower-link')) do

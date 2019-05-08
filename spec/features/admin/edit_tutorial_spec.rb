@@ -9,11 +9,10 @@ describe 'An Admin' do
   end
 
   before :each, editable_tutorial: true do
-    @videos = create_list(:sequenced_video, 3, tutorial:@tutorial)
+    @videos = create_list(:sequenced_video, 3, tutorial: @tutorial)
   end
 
   describe 'can edit a tutorial' do
-
     scenario 'by adding a video', :js, :vcr do
       visit edit_admin_tutorial_path(@tutorial)
 
@@ -31,13 +30,13 @@ describe 'An Admin' do
       end
     end
 
-    scenario 'by going to a page to edit video attributes', :editable_tutorial do
+    scenario 'by going to edit video attributes page', :editable_tutorial do
       visit edit_admin_tutorial_path(@tutorial)
 
       within('#video-list') do
-        @video_id = first('div', class:'video')['data-id']
-        within(first('div', class:'video')) do
-          click_on "Edit"
+        @video_id = first('div', class: 'video')['data-id']
+        within(first('div', class: 'video')) do
+          click_on 'Edit'
         end
       end
 
@@ -48,10 +47,10 @@ describe 'An Admin' do
       visit edit_admin_tutorial_path(@tutorial)
 
       within('#video-list') do
-        video_id = first('div', class:'video')['data-id']
+        video_id = first('div', class: 'video')['data-id']
         @video_info = Video.find(video_id)
-        within(first('div', class:'video')) do
-          click_on "Delete"
+        within(first('div', class: 'video')) do
+          click_on 'Delete'
         end
       end
 
@@ -62,6 +61,5 @@ describe 'An Admin' do
     end
 
     scenario 'by moving videos around by dragging them'
-
   end
 end

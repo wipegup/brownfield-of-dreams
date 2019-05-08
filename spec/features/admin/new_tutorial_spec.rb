@@ -9,8 +9,7 @@ describe 'An Admin can create a new tutorial' do
     visit new_admin_tutorial_path
 
     fill_in 'tutorial[title]', with: 'Steph Curry Skills'
-    fill_in 'tutorial[description]', 
-      with: 'How to miss a wide open layup at the end of a close game.'
+    fill_in 'tutorial[description]', with: 'How to miss a wide open layup'
     fill_in 'tutorial[thumbnail]', with: 'steph_curry_face_palm.jpg'
     click_on 'Save'
 

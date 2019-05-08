@@ -29,4 +29,13 @@ describe 'A registered user',:vcr do
       end
     end
   end
+
+  it 'can see all following' do
+    within('#github-following') do
+      expect(page).to have_css('.following-link')
+      within(first('.following-link')) do
+        expect(page).to have_selector('a')
+      end
+    end
+  end
 end

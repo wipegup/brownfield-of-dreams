@@ -25,7 +25,8 @@ describe 'An Admin' do
 
     click_on 'Save'
 
-    expect(current_path).to eq(admin_dashboard_path)
+    expect(current_path).to eq(tutorial_path(Tutorial.last))
     expect(page).to have_content(new_tutorial_attrs[:title])
+    expect(page).to have_content("Successfully created tutorial")
   end
 end

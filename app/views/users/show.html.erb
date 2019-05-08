@@ -5,7 +5,7 @@
   <h3>Account Details</h3>
   <ul>
     <li> <%= current_user.first_name  %> <%= current_user.last_name %> </li>
-    <li> <%= current_user.email%> </li>
+    <li> <%= current_user.email %> </li>
   </ul>
   <section>
     <h1>Bookmarked Segments</h1>
@@ -18,5 +18,19 @@
         <li class=repo-link><%= link_to repo.name, repo.link %></li>
       <%end%>
     </ul>
+
+  <h1>GitHub Followers</h1>
+    <ul id=github-followers>
+      <%facade.followers.each do |follower| %>
+        <li class=follower-link><%= link_to follower.name, follower.link%></li>
+      <%end%>
+    </ul>
+  <h1>GitHub Following</h1>
+    <ul id=github-following>
+      <%facade.followings.each do |following| %>
+        <li class=following-link><%= link_to following.name, following.link%></li>
+      <%end%>
+    </ul>
+    
   <%end%>
 </section>

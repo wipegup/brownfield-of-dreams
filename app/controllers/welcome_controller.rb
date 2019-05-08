@@ -6,5 +6,7 @@ class WelcomeController < ApplicationController
     else
       @tutorials = Tutorial.all.paginate(page: params[:page], per_page: 5)
     end
+
+    @tutorials = @tutorials.where(classroom: false) unless current_user
   end
 end

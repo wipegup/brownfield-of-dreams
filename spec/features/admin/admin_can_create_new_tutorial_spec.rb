@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'An Admin' do
-  it 'can add a tutorial', :js do
+  it 'can add a tutorial if all information present', :js do
     admin = create(:admin)
     new_tutorial_attrs = attributes_for(:tutorial)
 
@@ -13,15 +13,19 @@ describe 'An Admin' do
 
     expect(current_path).to eq(new_admin_tutorial_path)
 
-    fill_in 'tutorial[title]', with: new_tutorial_attrs['title']
-    fill_in 'tutorial[description]', with: new_tutorial_attrs['description']
-    fill_in 'tutorial[thumbnail]', with: new_tutorial_attrs['thumbnail']
+    fill_in 'tutorial[description]', with: new_tutorial_attrs[:description]
+    fill_in 'tutorial[thumbnail]', with: new_tutorial_attrs[:thumbnail]
+
+    click_on 'Save'
+
+    expect(page).to have_content('Fill out Form Completely')
+    fill_in 'tutorial[title]', with: new_tutorial_attrs[:title]
+    fill_in 'tutorial[description]', with: new_tutorial_attrs[:description]
+    fill_in 'tutorial[thumbnail]', with: new_tutorial_attrs[:thumbnail]
 
     click_on 'Save'
 
     expect(current_path).to eq(admin_dashboard_path)
-    expect(page).to have_content(new_tutorial_attrs['title'])
-    expect(page)
-      .to have_xpath("//img[@src='#{new_tutorial_attrs['thumbnail']}']")
+    expect(page).to have_content(new_tutorial_attrs[:title])
   end
 end

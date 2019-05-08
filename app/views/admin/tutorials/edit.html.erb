@@ -20,7 +20,7 @@
       <%= f.submit "Create Video", class: "mt1 btn btn-outline"  %>
     <% end %>
   </div>
-
+  
   <div id="video-list">
     <% @tutorial.videos.each do |video| %>
       <div class="video" data-id="<%= video.id %>" class="border rounded mt2 p1">

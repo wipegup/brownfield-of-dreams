@@ -9,7 +9,6 @@ describe 'vister can create an account', :js do
     @password_confirmation = 'password'
   end
   it ' visits the home page' do
-
     visit '/'
 
     click_on 'Sign In'

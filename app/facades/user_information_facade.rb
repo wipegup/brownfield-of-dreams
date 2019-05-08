@@ -11,12 +11,12 @@ class UserInformationFacade
   end
 
   private
-  
-    def git_repo_data
-      @git_repo_data ||= github_service.get_repos
-    end
 
-    def github_service
-      @github_service ||= GitHubService.new(@current_user.token)
-    end
+  def git_repo_data
+    @git_repo_data ||= github_service.get_repos
+  end
+
+  def github_service
+    @github_service ||= GitHubService.new(@current_user.token)
+  end
 end

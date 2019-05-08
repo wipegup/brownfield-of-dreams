@@ -12,7 +12,13 @@ class UserInformationFacade
 
   def followers
     git_follower_data.map do |follower_data|
-      Follower.new(follower_data)
+      GithubUser.new(follower_data)
+    end
+  end
+
+  def followings
+    git_following_data.map do |following_data|
+      GithubUser.new(following_data)
     end
   end
 
@@ -20,6 +26,10 @@ class UserInformationFacade
 
   def git_follower_data
     @git_follower_data ||= github_service.retrieve_followers
+  end
+
+  def git_following_data
+    @git_following_data ||= github_service.retrieve_following
   end
   def git_repo_data
     @git_repo_data ||= github_service.get_repos

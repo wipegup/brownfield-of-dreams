@@ -1,4 +1,4 @@
-class Follower
+class GithubUser
   attr_reader :name, :link
   def initialize(data)
     @name = data[:login]

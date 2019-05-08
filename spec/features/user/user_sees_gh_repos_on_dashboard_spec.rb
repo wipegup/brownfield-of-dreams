@@ -21,7 +21,7 @@ describe 'A registered user',:vcr do
   end
 
   it 'can see all followers' do
-
+    save_and_open_page
     within('#github-followers') do
       expect(page).to have_css('.follower-link')
       within(first('.follower-link')) do

@@ -13,8 +13,11 @@ class Admin::VideosController < Admin::BaseController
   end
 
   def update
+    params_to_update = params[:position] ? video_params : updated_video_params
     video = Video.find(params[:id])
-    video.update(video_params)
+    video.update(params_to_update)
+    flash[:info] = 'Video Updated!'
+    redirect_to(edit_admin_tutorial_path(video.tutorial_id))
   end
 
   def create
@@ -35,6 +38,10 @@ class Admin::VideosController < Admin::BaseController
 
   def video_params
     params.permit(:position)
+  end
+
+  def updated_video_params
+    params.require(:video).permit(:title, :description, :thumbnail)
   end
 
   def new_video_params

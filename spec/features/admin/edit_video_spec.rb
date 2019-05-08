@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'An Admin' do
   before :each do
-    @video = create(:video)
+    @video = create(:video, thumbnail: 'thumb')
     @admin = create(:admin)
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(@admin)
@@ -24,7 +24,7 @@ describe 'An Admin' do
 
     expect(current_path).to eq(edit_admin_tutorial_path(@video.tutorial_id))
 
-    expect(page).to have_content("Video Updated!")
+    expect(page).to have_content('Video Updated!')
     expect(page).to have_content(updated_video_params[:title])
     expect(page).not_to have_content(@video.title)
   end

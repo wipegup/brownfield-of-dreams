@@ -15,5 +15,5 @@ describe 'Admin authorization' do
     visit admin_dashboard_path
 
     expect(page.status_code).to eq(404)
-  end  
+  end
 end

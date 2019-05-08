@@ -27,6 +27,6 @@ describe 'An Admin' do
 
     expect(current_path).to eq(tutorial_path(Tutorial.last))
     expect(page).to have_content(new_tutorial_attrs[:title])
-    expect(page).to have_content("Successfully created tutorial")
+    expect(page).to have_content('Successfully created tutorial')
   end
 end

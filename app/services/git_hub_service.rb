@@ -9,6 +9,11 @@ class GitHubService
     JSON.parse(response.body, symbolize_names: true)
   end
 
+  def retrieve_followers
+    response = conn.get('followers')
+    JSON.parse(response.body, symbolize_names: true)
+  end
+  
   def conn
     Faraday.new('https://api.github.com/user/') do |f|
       f.adapter Faraday.default_adapter

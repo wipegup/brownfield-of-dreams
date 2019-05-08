@@ -18,5 +18,11 @@
         <li class=repo-link><%= link_to repo.name, repo.link %></li>
       <%end%>
     </ul>
+    
+  <h1>GitHub Followers</h1>
+    <ul id=github-followers>
+      <%facade.followers.each do |follower| %>
+        <li class=follower-link><%= link_to follower.name, follower.link%></li>
+      <%end%>
   <%end%>
 </section>

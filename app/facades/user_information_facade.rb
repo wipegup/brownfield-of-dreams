@@ -10,8 +10,17 @@ class UserInformationFacade
     end
   end
 
+  def followers
+    git_follower_data.map do |follower_data|
+      Follower.new(follower_data)
+    end
+  end
+
   private
 
+  def git_follower_data
+    @git_follower_data ||= github_service.retrieve_followers
+  end
   def git_repo_data
     @git_repo_data ||= github_service.get_repos
   end

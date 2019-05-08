@@ -24,7 +24,7 @@ describe 'A registered user',:vcr do
 
     within('#github-followers') do
       expect(page).to have_css('.follower-link')
-      within(first('.repo-link')) do
+      within(first('.follower-link')) do
         expect(page).to have_selector('a')
       end
     end

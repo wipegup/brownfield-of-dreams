@@ -35,13 +35,13 @@ describe 'An Admin' do
       visit edit_admin_tutorial_path(@tutorial)
 
       within('#video-list') do
-        video_id = first('div', class:'video')['data-id']
+        @video_id = first('div', class:'video')['data-id']
         within(first('div', class:'video')) do
           click_on "Edit"
         end
       end
 
-      expect(current_path).to eq(edit_admin_video_path(Video.find(video_id)))
+      expect(current_path).to eq(edit_admin_video_path(Video.find(@video_id)))
     end
 
     scenario 'by deleting video from the tutorial', :editable_tutorial do

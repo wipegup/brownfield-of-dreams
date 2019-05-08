@@ -20,11 +20,14 @@
       <%= f.submit "Create Video", class: "mt1 btn btn-outline"  %>
     <% end %>
   </div>
-  
+
   <div id="video-list">
     <% @tutorial.videos.each do |video| %>
       <div class="video" data-id="<%= video.id %>" class="border rounded mt2 p1">
-        <%= link_to video.title, tutorial_path(@tutorial, video_id: video.id) %><br>
+        <%= link_to video.title, tutorial_path(@tutorial, video_id: video.id) -%>
+        <%= button_to 'Delete' -%>
+        <%= link_to 'Edit' , edit_admin_video_path(video.id)-%>
+        <br>
         <img class="thumbnail" src= <%="#{video.thumbnail}" %> >
       </div>
     <% end %>

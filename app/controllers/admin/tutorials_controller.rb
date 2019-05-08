@@ -7,7 +7,8 @@ class Admin::TutorialsController < Admin::BaseController
     @tutorial = Tutorial.new(tutorial_params)
     if @tutorial.valid?
       @tutorial.save
-      redirect_to admin_dashboard_path
+      flash[:info] = 'Successfully created tutorial'
+      redirect_to tutorial_path(@tutorial)
     else
       flash[:error] = 'Fill out Form Completely'
       render :new

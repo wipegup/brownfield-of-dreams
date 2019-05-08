@@ -49,15 +49,16 @@ describe 'An Admin' do
 
       within('#video-list') do
         video_id = first('div', class:'video')['data-id']
-        video_info = Video.find(video_id)
+        @video_info = Video.find(video_id)
         within(first('div', class:'video')) do
           click_on "Delete"
         end
       end
 
       expect(current_path).to eq(edit_admin_tutorial_path(@tutorial))
-
-      expect(page).not_to have_content(video_info.title)
+      within('#video-list') do
+        expect(page).not_to have_content(@video_info.title)
+      end
     end
 
     scenario 'by moving videos around by dragging them'

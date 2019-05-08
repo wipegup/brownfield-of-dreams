@@ -1,7 +1,17 @@
 class Admin::VideosController < Admin::BaseController
+  def destroy
+    @video = Video.find(params[:id])
+    title = @video.title
+    tutorial = @video.tutorial_id
+    @video.destroy
+    flash[:info] = "#{title} deleted from tutorial"
+    redirect_to edit_admin_tutorial_path(tutorial)
+  end
+
   def edit
     @video = Video.find(params[:id])
   end
+
 
   def update
     video = Video.find(params[:id])

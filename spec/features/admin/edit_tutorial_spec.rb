@@ -70,7 +70,9 @@ describe 'An Admin' do
       expect(Tutorial.count).to eq(0)
 
       expect(current_path).to eq(admin_dashboard_path)
-      expect(page).not_to have_content(@tutorial.title)
+      within('table') do
+        expect(page).not_to have_content(@tutorial.title)
+      end
     end
 
     scenario 'by moving videos around by dragging them'

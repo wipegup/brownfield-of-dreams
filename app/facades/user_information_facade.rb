@@ -41,6 +41,6 @@ class UserInformationFacade
   end
 
   def github_service
-    @github_service ||= GitHubService.new(@current_user.token)
+    @github_service ||= GitHubService.new(@current_user.github_token)
   end
 end

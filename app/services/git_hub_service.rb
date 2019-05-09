@@ -8,7 +8,7 @@ class GitHubService
     response = conn.get(url_end)
     JSON.parse(response.body, symbolize_names: true)
   end
-  
+
   def conn
     Faraday.new('https://api.github.com/user/') do |f|
       f.adapter Faraday.default_adapter

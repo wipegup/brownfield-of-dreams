@@ -41,4 +41,6 @@ Rails.application.routes.draw do
   end
 
   resources :user_videos, only: %i[create destroy]
+
+  get '/auth/:github/callback', to: 'github_oauth#create'
 end

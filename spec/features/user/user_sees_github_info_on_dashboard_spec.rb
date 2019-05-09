@@ -6,7 +6,8 @@ describe 'A registered user', :vcr do
 
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(@user)
-    allow(@user).to receive(:token).and_return(ENV['GH_USER_TOKEN'])
+    allow(@user).to receive(:github_token).and_return(ENV['GH_USER_TOKEN'])
+    allow(@user).to receive(:github_uid).and_return(true)
     visit dashboard_path
   end
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'A registered user can add Github to account', :vcr do
+describe 'A registered user can add their Github', :vcr do
   before :each do
     @user = create(:user)
 
@@ -16,17 +16,19 @@ describe 'A registered user can add Github to account', :vcr do
   it 'can add github account via OAuth' do
     # OmniAuth mock setup
     OmniAuth.config.test_mode = true
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(
       uid: @uid,
-      credentials: { token: @token }
-      })
-    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
+      credentials: {
+        token: @token
+      }
+    )
+    Rails.application.env_config['omniauth.auth'] =
+      OmniAuth.config.mock_auth[:github]
 
     expect(@user.github_uid).to be_nil
     expect(@user.github_token).to be_nil
 
     click_on 'Connect to Github'
-
     expect(current_path).to eq(dashboard_path)
 
     @user.reload

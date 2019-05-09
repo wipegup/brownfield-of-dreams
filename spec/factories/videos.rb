@@ -7,6 +7,6 @@ FactoryBot.define do
   end
 
   factory :sequenced_video, parent: :video do
-    sequence(:position){ |n| n}
+    sequence(:position){ |n| n }
   end
 end

@@ -60,6 +60,19 @@ describe 'An Admin' do
       end
     end
 
+    scenario 'by deleting the tutorial', :editable_tutorial do
+      visit admin_dashboard_path
+      within(first('.admin-tutorial-card')) do
+        click_on 'Delete'
+      end
+
+      expect(Video.count).to eq(0)
+      expect(Tutorial.count).to eq(0)
+
+      expect(current_path).to eq(admin_dashboard_path)
+      expect(page).not_to have_content(@tutorial.title)
+    end
+
     scenario 'by moving videos around by dragging them'
   end
 end

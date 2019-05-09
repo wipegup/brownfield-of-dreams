@@ -4,6 +4,10 @@ class UserInformationFacade
     @current_user = current_user
   end
 
+  def bookmarked_videos
+    @current_user.videos.order(:tutorial_id, :position)
+  end
+
   def top_repos
     git_repo_data.take(5).map do |repo_data|
       Repo.new(repo_data)

@@ -14,6 +14,14 @@ class Admin::TutorialsController < Admin::BaseController
     end
   end
 
+  def destroy
+    tutorial = Tutorial.find(params[:id])
+    title = tutorial.title
+    tutorial.destroy
+    flash[:info] = "#{title} destroyed"
+    redirect_to admin_dashboard_path
+  end
+
   def new
     @tutorial = Tutorial.new
   end

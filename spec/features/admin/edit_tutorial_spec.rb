@@ -63,7 +63,7 @@ describe 'An Admin' do
     scenario 'by deleting the tutorial', :editable_tutorial do
       visit admin_dashboard_path
       within(first('.admin-tutorial-card')) do
-        click_on 'Delete'
+        click_on 'Destroy'
       end
 
       expect(Video.count).to eq(0)

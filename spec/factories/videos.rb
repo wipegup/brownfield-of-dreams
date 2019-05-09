@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :video do
     title { Faker::Pokemon.name }
@@ -8,6 +10,6 @@ FactoryBot.define do
   end
 
   factory :sequenced_video, parent: :video do
-    sequence(:position){ |n| n }
+    sequence(:position) { |n| n }
   end
 end

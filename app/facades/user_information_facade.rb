@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Collects data for a user for passing to user#show ('/dashboard')
 class UserInformationFacade
   def initialize(current_user)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :import do
   desc :"All youtube data"
   task all: %i[users tutorials videos]

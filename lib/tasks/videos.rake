@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :videos do
   desc 'Updates video position to end attribute if it is nil'
   task update_position_if_nil: :environment do

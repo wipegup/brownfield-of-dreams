@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::VideosController < Admin::BaseController
   def destroy
     @video = Video.find(params[:id])

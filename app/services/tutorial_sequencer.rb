@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TutorialSequencer
   def initialize(tutorial, sequenced_video_ids)
     @tutorial = tutorial

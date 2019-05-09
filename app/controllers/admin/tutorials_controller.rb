@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::TutorialsController < Admin::BaseController
   def edit
     @tutorial = Tutorial.find(params[:id])

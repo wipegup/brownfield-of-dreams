@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GithubOauthController < ApplicationController
   def create
     auth = request.env['omniauth.auth']

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TutorialFacade < SimpleDelegator
   def initialize(tutorial, video_id = nil)
     super(tutorial)

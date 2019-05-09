@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Parses data from github API retrieving repo data
 
 class Repo

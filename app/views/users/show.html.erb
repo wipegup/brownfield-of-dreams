@@ -9,6 +9,14 @@
   </ul>
   <section>
     <h1>Bookmarked Segments</h1>
+    <ul>
+    <% facade.bookmarked_videos.each do |video| %>
+      <li class=bookmarked-video>
+        <%= link_to video.title, tutorial_path(video.tutorial_id, video_id: video.id) %>
+        <p><img class="thumbnail" src= <%="#{video.thumbnail}" %> ></p>
+      </li>
+    <% end %>
+    </ul>
   </section>
 
   <% if current_user.token%>
@@ -31,6 +39,6 @@
         <li class=following-link><%= link_to following.name, following.link%></li>
       <%end%>
     </ul>
-    
+
   <%end%>
 </section>

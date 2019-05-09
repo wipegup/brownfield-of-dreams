@@ -24,7 +24,10 @@
   <div id="video-list">
     <% @tutorial.videos.each do |video| %>
       <div class="video" data-id="<%= video.id %>" class="border rounded mt2 p1">
-        <%= link_to video.title, tutorial_path(@tutorial, video_id: video.id) %><br>
+        <%= link_to video.title, tutorial_path(@tutorial, video_id: video.id) -%>
+        <%= link_to 'Delete', admin_video_path(video.id), method: :delete -%>
+        <%= link_to 'Edit' , edit_admin_video_path(video.id)-%>
+        <br>
         <img class="thumbnail" src= <%="#{video.thumbnail}" %> >
       </div>
     <% end %>

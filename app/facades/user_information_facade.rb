@@ -5,7 +5,9 @@ class UserInformationFacade
   end
 
   def bookmarked_videos
-    @current_user.videos.order(:tutorial_id, :position)
+    Video.joins(:user_videos)
+    .where('user_videos.user_id': @current_user.id)
+    .order(:tutorial_id, :position)
   end
 
   def top_repos

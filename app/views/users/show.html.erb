@@ -24,6 +24,15 @@
     </ul>
   </section>
 
+  <section id=friends>
+    <h1>Turing Friends</h1>
+    <ul>
+    <%= current_user.friends.each do |friend| %>
+      <li><%= friend.first_name %> <%= friend.last_name %></li>
+    <% end %>
+    </ul>
+  </section>
+
   <% if current_user.github_uid%>
   <h1>GitHub Repos</h1>
     <ul id=github-repos>
@@ -35,15 +44,25 @@
   <h1>GitHub Followers</h1>
     <ul id=github-followers>
       <%facade.followers.each do |follower| %>
-        <li class=follower-link><%= link_to follower.name, follower.link%></li>
+        <li class=follower-link>
+          <%= link_to follower.name, follower.link%>
+          <% if follower.has_account? && current_user.not_friends_with(follower.github_uid) %>
+            <%= link_to "Add as Friend", friendships_path(follower.github_uid), method: :post %>
+          <% end %>
+        </li>
       <%end%>
     </ul>
   <h1>GitHub Following</h1>
     <ul id=github-following>
-      <%facade.followings.each do |following| %>
-        <li class=following-link><%= link_to following.name, following.link%></li>
-      <%end%>
+      <% facade.followings.each do |following| %>
+        <li class=following-link>
+          <%= link_to following.name, following.link%>
+          <% if following.has_account? && current_user.not_friends_with(following.github_uid) %>
+            <%= link_to "Add as Friend", friendships_path(following.github_uid), method: :post %>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
 
-  <%end%>
+  <% end %>
 </section>

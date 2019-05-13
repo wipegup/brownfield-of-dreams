@@ -12,4 +12,9 @@ FactoryBot.define do
   factory :admin, parent: :user do
     role { :admin }
   end
+
+  factory :github_user, parent: :user do
+    sequence(:github_uid){ |n| n }
+    sequence(:github_token){ |n| n }
+  end
 end

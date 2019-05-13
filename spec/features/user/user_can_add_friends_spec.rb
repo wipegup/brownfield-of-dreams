@@ -81,18 +81,20 @@ describe 'A registered user', :vcr do
     end
   end
 
-  it 'links do not show up next to followers or followings if they are not in our database'
   it 'shows all of the users that I have friended'
   it 'shows error messages if adding a friend fails'
 
-  it 'can see add followers as friends if they have an account' do
+  it 'Addingcan see add followers as friends if they have an account' do
     expect(@user.friends.count).to eq(0)
-
+    friend_name = ''
     within(first('.follower-link')) do
+      friend_name = page.text.split(' ')[0]
       click_on "Add as Friend"
     end
 
     expect(current_path).to eq(dashboard_path)
+    expect(page).not_to have_content("#{friend_name} Add as Friend")
+    expect(page).to have_content("#{friend_name} is a Friend")
     @user.reload
     expect(@user.friends.count).to eq(1)
   end

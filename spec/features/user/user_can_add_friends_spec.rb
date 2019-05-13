@@ -21,12 +21,12 @@ describe 'A registered user', :vcr do
       @followings_with_account = create_list(:github_user, 2)
       @users_without_GH = create_list(:user, 3)
       @github_followers_without_account =
-        [{login: "Test1", html_url: "www.google.com", github_uid: 123456},
-         {login: "Test2", html_url: "www.google.com", github_uid: 123457}]
+        [{login: "NoAccount1", html_url: "www.google.com", github_uid: 123456},
+         {login: "NoAccount2", html_url: "www.google.com", github_uid: 123457}]
 
       @github_followings_without_account =
-       [{login: "Test3", html_url: "www.google.com", github_uid: 123458},
-        {login: "Test4", html_url: "www.google.com", github_uid: 123459}]
+       [{login: "NoAccount3", html_url: "www.google.com", github_uid: 123458},
+        {login: "NoAccount4", html_url: "www.google.com", github_uid: 123459}]
 
       @followers_with_account_info = @followers_with_account.map do |f|
         {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}
@@ -56,11 +56,17 @@ describe 'A registered user', :vcr do
   end
 
   it 'links show up next to followers that have accounts in our system' do
-    save_and_open_page
-      within ('#github-followers') do
-        followers = all('.follower-link')
-        binding.pry
+    # save_and_open_page
+    within ('#github-followers') do
+      followers = all('.follower-link')
+      followers.each do |f|
+        if f.text.include?("NoAccount")
+          expect(f).not_to have_link("Add as Friend")
+        else
+          expect(f).to have_link("Add as Friend")
+        end
       end
+    end
   end
 
   it 'links show up next to followings that have accounts in our database'

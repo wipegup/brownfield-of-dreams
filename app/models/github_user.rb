@@ -3,8 +3,8 @@ class GithubUser
   def initialize(data)
     @name = data[:login]
     @link = data[:html_url]
-    @github_uid = data[:id]
-    @user_id = User.find_by(github_uid: data[:id])
+    @github_uid = data[:github_uid]
+    @user_id = User.find_by(github_uid: @github_uid) ? User.find_by(github_uid: @github_uid)[:id] : nil
   end
 
   def has_account?

@@ -84,7 +84,7 @@ describe 'A registered user', :vcr do
   it 'shows all of the users that I have friended'
   it 'shows error messages if adding a friend fails'
 
-  it 'Addingcan see add followers as friends if they have an account' do
+  it 'Adding friend removes add friend link' do
     expect(@user.friends.count).to eq(0)
     friend_name = ''
     within(first('.follower-link')) do

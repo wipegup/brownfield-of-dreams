@@ -7,14 +7,50 @@ describe 'A registered user', :vcr do
 
     allow_any_instance_of(ApplicationController)
       .to receive(:current_user).and_return(@user)
-    allow(@user).to receive(:github_token).and_return(ENV['GH_USER_TOKEN'])
-    allow(@user).to receive(:github_uid).and_return(true)
 
-    allow_any_instance_of(GithubUser)
-      .to receive(:has_account?).and_return(true)
+    # allow(@user).to receive(:github_token).and_return(ENV['GH_USER_TOKEN'])
+    # allow(@user).to receive(:github_uid).and_return(true)
+    #
+    # allow_any_instance_of(GithubUser)
+    #   .to receive(:has_account?).and_return(true)
+    #
+    # allow_any_instance_of(GithubUser)
+    #   .to receive(:github_uid).and_return('1234')
 
-    allow_any_instance_of(GithubUser)
-      .to receive(:github_uid).and_return('1234')
+      @followers_with_account = create_list(:github_user, 2)
+      @followings_with_account = create_list(:github_user, 2)
+      @users_without_GH = create_list(:user, 3)
+      @github_followers_without_account =
+        [{login: "Test1", html_url: "www.google.com"},
+         {login: "Test2", html_url: "www.google.com"}]
+
+      @github_followings_without_account =
+       [{login: "Test3", html_url: "www.google.com"},
+        {login: "Test4", html_url: "www.google.com"}]
+
+      @followers_with_account_info = followers_with_account.map do |f|
+        {login:f.first_name, html_url: "www.google.com"}
+      end
+
+      @followers = followers_with_account_info + github_followers_without_account
+
+      @followings_with_account_info = followings_with_account.map do |f|
+        {login:f.first_name, html_url: "www.google.com"}
+      end
+
+      @followings = followings_with_account_info + github_followings_without_account
+
+      allow_any_instance_of(UserInformationFacade)
+        .to receive(:followers)
+        .and_return(followers.map{ |f| GithubUser.new(f)})
+
+      allow_any_instance_of(UserInformationFacade)
+        .to receive(:followings)
+        .and_return(followings.map{ |f| GithubUser.new(f)})
+
+      allow_any_instance_of(UserInformationFacade)
+        .to receive(:top_repos)
+        .and_return([])
 
     visit dashboard_path
   end

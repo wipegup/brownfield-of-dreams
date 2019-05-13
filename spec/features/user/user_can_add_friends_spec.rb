@@ -110,7 +110,7 @@ describe 'A registered user', :vcr do
 
 
   it 'shows error messages if adding a friend fails' do
-    page.driver.post friendships_path, params:{github_uid:9999}
+    page.driver.post friendships_path, github_uid:9999
     click_on 'redirected'
     expect(page).to have_content("No Friend Created")
   end
@@ -122,6 +122,8 @@ describe 'A registered user', :vcr do
       friend_name = page.text.split(' ')[0]
       click_on "Add as Friend"
     end
+
+    # binding.pry
 
     expect(current_path).to eq(dashboard_path)
     expect(page).not_to have_content("#{friend_name} Add as Friend")

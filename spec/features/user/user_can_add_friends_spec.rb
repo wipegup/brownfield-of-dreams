@@ -21,12 +21,12 @@ describe 'A registered user', :vcr do
       @followings_with_account = create_list(:github_user, 2)
       @users_without_GH = create_list(:user, 3)
       @github_followers_without_account =
-        [{login: "NoAccount1", html_url: "www.google.com", github_uid: 123456},
-         {login: "NoAccount2", html_url: "www.google.com", github_uid: 123457}]
+        [{login: "NoAccount1", html_url: "www.google.com", id: 123456},
+         {login: "NoAccount2", html_url: "www.google.com", id: 123457}]
 
       @github_followings_without_account =
-       [{login: "NoAccount3", html_url: "www.google.com", github_uid: 123458},
-        {login: "NoAccount4", html_url: "www.google.com", github_uid: 123459}]
+       [{login: "NoAccount3", html_url: "www.google.com", id: 123458},
+        {login: "NoAccount4", html_url: "www.google.com", id: 123459}]
 
       @followers_with_account_info = @followers_with_account.map do |f|
         {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}

@@ -5,8 +5,8 @@ describe 'A registered user', :vcr do
     @user = create(:github_user)
     @future_friend = create(:user, github_uid: '1234')
 
-    allow_any_instance_of(ApplicationController)
-      .to receive(:current_user).and_return(@user)
+    # allow_any_instance_of(ApplicationController)
+    #   .to receive(:current_user).and_return(@user)
 
     # allow(@user).to receive(:github_token).and_return(ENV['GH_USER_TOKEN'])
     # allow(@user).to receive(:github_uid).and_return(true)
@@ -29,13 +29,13 @@ describe 'A registered user', :vcr do
         {login: "NoAccount4", html_url: "www.google.com", id: 123459}]
 
       @followers_with_account_info = @followers_with_account.map do |f|
-        {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}
+        {login:f.first_name, html_url: "www.google.com", id:f.github_uid, user_id:f.id}
       end
 
       @followers = @followers_with_account_info + @github_followers_without_account
 
       @followings_with_account_info = @followings_with_account.map do |f|
-        {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}
+        {login:f.first_name, html_url: "www.google.com", id:f.github_uid, user_id:f.id}
       end
 
       @followings = @followings_with_account_info + @github_followings_without_account
@@ -52,7 +52,15 @@ describe 'A registered user', :vcr do
         .to receive(:top_repos)
         .and_return([])
 
-    visit dashboard_path
+      # Put below in helper method
+      visit '/'
+      click_on 'Sign In'
+      fill_in "session[email]", with: @user.email
+      fill_in "session[password]", with: @user.password
+
+      click_on "Log In"
+
+      visit dashboard_path
   end
 
   it 'links show up next to followers that have accounts in our system' do
@@ -81,7 +89,31 @@ describe 'A registered user', :vcr do
     end
   end
 
-  it 'shows all of the users that I have friended'
+  it 'shows all of the users that I have friended' do
+
+    future_friends = [@followers_with_account[0], @followings_with_account[0]]
+    # save_and_open_page
+    within("#follower-link-#{future_friends[0].github_uid}") do
+      click_on "Add as Friend"
+    end
+
+
+
+      within("#following-link-#{future_friends[1].github_uid}") do
+        click_on "Add as Friend"
+      end
+      @user = @user.reload
+      # save_and_open_page
+      within('#friends') do
+        future_friends.each do |friend|
+          expect(page).to have_content(friend.first_name)
+          expect(page).to have_content(friend.last_name)
+        end
+      end
+
+  end
+
+
   it 'shows error messages if adding a friend fails'
 
   it 'Adding friend removes add friend link' do

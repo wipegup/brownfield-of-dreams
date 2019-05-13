@@ -92,29 +92,28 @@ describe 'A registered user', :vcr do
   it 'shows all of the users that I have friended' do
 
     future_friends = [@followers_with_account[0], @followings_with_account[0]]
-    # save_and_open_page
     within("#follower-link-#{future_friends[0].github_uid}") do
       click_on "Add as Friend"
     end
 
-
-
-      within("#following-link-#{future_friends[1].github_uid}") do
-        click_on "Add as Friend"
+    within("#following-link-#{future_friends[1].github_uid}") do
+      click_on "Add as Friend"
+    end
+    @user = @user.reload
+    within('#friends') do
+      future_friends.each do |friend|
+        expect(page).to have_content(friend.first_name)
+        expect(page).to have_content(friend.last_name)
       end
-      @user = @user.reload
-      # save_and_open_page
-      within('#friends') do
-        future_friends.each do |friend|
-          expect(page).to have_content(friend.first_name)
-          expect(page).to have_content(friend.last_name)
-        end
-      end
-
+    end
   end
 
 
-  it 'shows error messages if adding a friend fails'
+  it 'shows error messages if adding a friend fails' do
+    page.driver.post friendships_path, params:{github_uid:9999}
+    click_on 'redirected'
+    expect(page).to have_content("No Friend Created")
+  end
 
   it 'Adding friend removes add friend link' do
     expect(@user.friends.count).to eq(0)

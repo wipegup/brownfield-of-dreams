@@ -56,7 +56,6 @@ describe 'A registered user', :vcr do
   end
 
   it 'links show up next to followers that have accounts in our system' do
-    # save_and_open_page
     within ('#github-followers') do
       followers = all('.follower-link')
       followers.each do |f|
@@ -69,7 +68,19 @@ describe 'A registered user', :vcr do
     end
   end
 
-  it 'links show up next to followings that have accounts in our database'
+  it 'links show up next to followings that have accounts in our database' do
+    within ('#github-following') do
+      followers = all('.follower-link')
+      followers.each do |f|
+        if f.text.include?("NoAccount")
+          expect(f).not_to have_link("Add as Friend")
+        else
+          expect(f).to have_link("Add as Friend")
+        end
+      end
+    end
+  end
+
   it 'links do not show up next to followers or followings if they are not in our database'
   it 'shows all of the users that I have friended'
   it 'shows error messages if adding a friend fails'

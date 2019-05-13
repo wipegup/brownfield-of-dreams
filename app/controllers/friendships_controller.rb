@@ -4,7 +4,7 @@ class FriendshipsController < ApplicationController
     if new_friend
       current_user.friendships.create(friend_id: new_friend.id)
     else
-      flash[:info] = "No Friend Created"
+      flash[:info] = 'No Friend Created'
     end
 
     redirect_to dashboard_path

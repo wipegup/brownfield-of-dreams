@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   def show
-    # binding.pry
     render locals: {
       facade: UserInformationFacade.new(current_user)
     }

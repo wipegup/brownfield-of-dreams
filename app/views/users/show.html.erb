@@ -46,7 +46,7 @@
       <%facade.followers.each do |follower| %>
         <li class=follower-link id=<%="follower-link-#{follower.github_uid}"%>>
           <%= link_to follower.name, follower.link%>
-          <% if follower.has_account?%>
+          <% if follower.user_id%>
             <% if current_user.not_friends_with(follower.github_uid) %>
               <%= link_to "Add as Friend", friendships_path(params:{github_uid: follower.github_uid}), method: :post %>
             <% else %>
@@ -60,9 +60,13 @@
     <ul id=github-following>
       <% facade.followings.each do |following| %>
         <li class=following-link id=<%="following-link-#{following.github_uid}"%>>
-          <%= link_to following.name, following.link%>
-          <% if following.has_account? && current_user.not_friends_with(following.github_uid) %>
-            <%= link_to "Add as Friend", friendships_path(params:{github_uid: following.github_uid}), method: :post %>
+          <%= link_to following.name, following.link%>  
+          <% if following.user_id%>
+            <% if current_user.not_friends_with(following.github_uid) %>
+              <%= link_to "Add as Friend", friendships_path(params:{github_uid: following.github_uid}), method: :post %>
+            <% else %>
+              is a Friend
+            <%end%>
           <% end %>
         </li>
       <% end %>

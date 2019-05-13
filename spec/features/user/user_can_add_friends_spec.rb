@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'A registered user', :vcr do
   before :each do
-    @user = create(:user)
+    @user = create(:github_user)
     @future_friend = create(:user, github_uid: '1234')
 
     allow_any_instance_of(ApplicationController)
@@ -21,32 +21,32 @@ describe 'A registered user', :vcr do
       @followings_with_account = create_list(:github_user, 2)
       @users_without_GH = create_list(:user, 3)
       @github_followers_without_account =
-        [{login: "Test1", html_url: "www.google.com"},
-         {login: "Test2", html_url: "www.google.com"}]
+        [{login: "Test1", html_url: "www.google.com", github_uid: 123456},
+         {login: "Test2", html_url: "www.google.com", github_uid: 123457}]
 
       @github_followings_without_account =
-       [{login: "Test3", html_url: "www.google.com"},
-        {login: "Test4", html_url: "www.google.com"}]
+       [{login: "Test3", html_url: "www.google.com", github_uid: 123458},
+        {login: "Test4", html_url: "www.google.com", github_uid: 123459}]
 
-      @followers_with_account_info = followers_with_account.map do |f|
-        {login:f.first_name, html_url: "www.google.com"}
+      @followers_with_account_info = @followers_with_account.map do |f|
+        {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}
       end
 
-      @followers = followers_with_account_info + github_followers_without_account
+      @followers = @followers_with_account_info + @github_followers_without_account
 
-      @followings_with_account_info = followings_with_account.map do |f|
-        {login:f.first_name, html_url: "www.google.com"}
+      @followings_with_account_info = @followings_with_account.map do |f|
+        {login:f.first_name, html_url: "www.google.com", github_uid:f.github_uid, user_id:f.id}
       end
 
-      @followings = followings_with_account_info + github_followings_without_account
+      @followings = @followings_with_account_info + @github_followings_without_account
 
       allow_any_instance_of(UserInformationFacade)
         .to receive(:followers)
-        .and_return(followers.map{ |f| GithubUser.new(f)})
+        .and_return(@followers.map{ |f| GithubUser.new(f)})
 
       allow_any_instance_of(UserInformationFacade)
         .to receive(:followings)
-        .and_return(followings.map{ |f| GithubUser.new(f)})
+        .and_return(@followings.map{ |f| GithubUser.new(f)})
 
       allow_any_instance_of(UserInformationFacade)
         .to receive(:top_repos)
@@ -55,7 +55,14 @@ describe 'A registered user', :vcr do
     visit dashboard_path
   end
 
-  it 'links show up next to followers that have accounts in our system'
+  it 'links show up next to followers that have accounts in our system' do
+    save_and_open_page
+      within ('#github-followers') do
+        followers = all('.follower-link')
+        binding.pry
+      end
+  end
+
   it 'links show up next to followings that have accounts in our database'
   it 'links do not show up next to followers or followings if they are not in our database'
   it 'shows all of the users that I have friended'

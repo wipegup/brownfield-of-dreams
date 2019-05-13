@@ -43,4 +43,5 @@ Rails.application.routes.draw do
   resources :user_videos, only: %i[create destroy]
 
   get '/auth/:github/callback', to: 'github_oauth#create'
+  resources :friendships, only: [:create]
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tutorials, only: %i[show index]
       resources :videos, only: [:show]
+      post '/bookmarks/:video_id/:user_id', to: 'bookmarks#create'
     end
   end
 
@@ -38,4 +39,5 @@ Rails.application.routes.draw do
 
   get '/auth/:github/callback', to: 'github_oauth#create'
   resources :friendships, only: [:create]
+
 end

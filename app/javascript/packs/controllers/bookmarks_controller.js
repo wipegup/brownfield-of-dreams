@@ -5,7 +5,7 @@ export default class extends Controller {
   addBookmark(event) {
     event.preventDefault();
     let [video_id, user_id] = event.target.id.split(" ")
-    debugger;
+    // debugger;
     fetch(`/api/v1/bookmarks/${video_id}/${user_id}`, {
       method: "POST",
       headers: {

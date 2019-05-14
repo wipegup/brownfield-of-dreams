@@ -17,7 +17,7 @@
       <h3><%= @facade.current_video.title %></h3>
       <div data-controller="bookmarks" class="bookmarks-btn">
         <% if current_user %>
-        <%= button_to "Bookmark", "#", "data-action" => "click->bookmarks#addBookmark", id: [@facade.current_video.id, current_user.id], method: :post, class: "btn btn-outline mb1 teal" %> <%#,data:{disable_with: 'Bookmarked'}%>
+        <%= button_to "Bookmark", "#", "data-action" => "click->bookmarks#addBookmark", id: [@facade.current_video.id, current_user.id], method: :post, class: "btn btn-outline mb1 teal" ,data:{disable: true, disable_with: 'Bookmarked'}%> <%#,data:{disable_with: 'Bookmarked'}%>
         <% else %>
         <%= link_to "Bookmark", login_path, class: "btn btn-outline mb1 teal" %>
         <% end %>

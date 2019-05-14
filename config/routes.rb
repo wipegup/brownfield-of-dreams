@@ -29,16 +29,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/dashboard', to: 'users#show'
-  get '/about', to: 'about#show'
-
-  # Is this being used?
-  get '/video', to: 'video#show'
 
   resources :users, only: %i[new create update edit]
 
-  resources :tutorials, only: %i[show index] do
-    resources :videos, only: %i[show index]
-  end
+  resources :tutorials, only: [:show]
 
   resources :user_videos, only: %i[create destroy]
 

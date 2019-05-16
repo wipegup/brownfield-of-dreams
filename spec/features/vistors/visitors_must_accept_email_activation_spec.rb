@@ -58,7 +58,6 @@ describe 'visitor can create an account' do
     expect(current_path).to eq(activate_path(activation_email_code))
     expect(page).to have_content('Thank you! Your account is now activated.')
 
-
     visit dashboard_path
     expect(page).to have_content('Status: Active')
   end

@@ -24,7 +24,6 @@ class User < ApplicationRecord
     activation = self.activations.create(
       email_code: SecureRandom.hex
     )
-    # Returns the email_code for email to be sent
     activation.email_code
   end
 end

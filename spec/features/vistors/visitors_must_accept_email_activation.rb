@@ -44,8 +44,19 @@ describe 'visitor can create an account' do
     # When I check my email for the registration email
     # I should see a message that says "Visit here to activate your account."
     # And when I click on that link
+    source = ActionMailer::Base.deliveries.last.body.parts[0].body.raw_source
+    begin_link = source.index("href=")+5
+    end_link = source.index(">", begin_link) -1
+    link = source[begin_link..end_link]
+    begin_uri = link.index(".com") + 4
+
+    link_to_click = link[begin_uri..-1].gsub('"','')
+
+    # binding.pry
+
+    visit link_to_click
     activation_email_code = Activation.first.email_code
-    visit activation_path(activation_email_code)
+    # visit activation_path(activation_email_code)
 
     # Then I should be taken to a page that says "Thank you! Your account is now activated."
     expect(current_path).to eq(activate_path(activation_email_code))

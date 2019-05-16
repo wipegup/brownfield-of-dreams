@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'vister can create an account', :js do
+describe 'visitor can create an account' do
   before :each do
     @email = 'jimbob@aol.com'
     @first_name = 'Jim'
@@ -8,7 +8,8 @@ describe 'vister can create an account', :js do
     @password = 'password'
     @password_confirmation = 'password'
   end
-  it ' visits the home page' do
+
+  it 'visits the home page' do
     visit '/'
 
     click_on 'Sign In'
@@ -33,6 +34,10 @@ describe 'vister can create an account', :js do
     expect(page).to have_content(@first_name)
     expect(page).to have_content(@last_name)
     expect(page).to_not have_content('Sign In')
+
+    msg = 'This account has not yet been activated. Please check your email.'
+
+    expect(page).to have_content(msg)
   end
 
   it 'cannot use the same e-mail twice' do

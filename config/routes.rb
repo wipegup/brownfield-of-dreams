@@ -44,4 +44,6 @@ Rails.application.routes.draw do
 
   get '/auth/:github/callback', to: 'github_oauth#create'
   resources :friendships, only: [:create]
+  get '/invite', to: 'invite#new', as: :invite
+  post '/invite', to: 'invite#create'
 end

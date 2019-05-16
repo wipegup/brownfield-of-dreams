@@ -5,6 +5,8 @@
 
   <% unless current_user.github_uid %>
     <%= button_to 'Connect to Github', 'auth/github' %>
+  <% else %>
+    <%= link_to 'Invite a Friend to Join', invite_path %>
   <% end %>
 
   <h3>Account Details</h3>
@@ -60,7 +62,7 @@
     <ul id=github-following>
       <% facade.followings.each do |following| %>
         <li class=following-link id=<%="following-link-#{following.github_uid}"%>>
-          <%= link_to following.name, following.link%>  
+          <%= link_to following.name, following.link%>
           <% if following.user_id%>
             <% if current_user.not_friends_with(following.github_uid) %>
               <%= link_to "Add as Friend", friendships_path(params:{github_uid: following.github_uid}), method: :post %>

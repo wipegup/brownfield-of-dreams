@@ -29,6 +29,8 @@ describe 'Logged in user', :vcr do
     fill_in 'github_username', with: 'wipegup'
     click_on 'Send Invite'
 
-    expect(page).to have_content('The Github user you selected does not have an email address associated with their account.')
+    msg = "The Github user you selected does not have an email \
+address associated with their account."
+    expect(page).to have_content(msg)
   end
 end

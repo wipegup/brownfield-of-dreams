@@ -1,6 +1,12 @@
 <section class="dashboard-main">
   <h1> <%= current_user.first_name %>'s Dashboard </h1>
 
+  <% unless current_user.active? %>
+    <p>This account has not yet been activated. Please check your email.</p>
+  <% else %>
+    <p>Account Status: Active</p>
+  <% end %>
+
   <%= button_to 'Log Out', logout_path, method: 'delete', class: "btn btn-primary mb1 bg-teal" %>
 
   <% unless current_user.github_uid %>

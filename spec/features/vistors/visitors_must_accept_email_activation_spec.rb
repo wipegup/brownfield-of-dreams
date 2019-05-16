@@ -45,12 +45,12 @@ describe 'visitor can create an account' do
     # I should see a message that says "Visit here to activate your account."
     # And when I click on that link
     source = ActionMailer::Base.deliveries.last.body.parts[0].body.raw_source
-    begin_link = source.index("href=")+5
-    end_link = source.index(">", begin_link) -1
+    begin_link = source.index('href=') + 5
+    end_link = source.index('>', begin_link) - 1
     link = source[begin_link..end_link]
-    begin_uri = link.index(".com") + 4
+    begin_uri = link.index('.com') + 4
 
-    link_to_click = link[begin_uri..-1].gsub('"','')
+    link_to_click = link[begin_uri..-1].gsub('"', '')
 
     visit '/activate/123456'
     expect(page).to have_content('Sorry, invalid activation code entered.')

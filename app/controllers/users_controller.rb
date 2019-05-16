@@ -12,9 +12,10 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
+      ActivationMailer.activation(@user, @user.generate_activation).deliver_now
+
       session[:user_id] = @user.id
-      flash[:notice] = "This account has not yet been activated. \
-Please check your email."
+      flash[:notice] = "Logged in as #{@user.email}"
       redirect_to dashboard_path
     else
       flash[:error] = 'E-mail already in use'

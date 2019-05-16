@@ -46,4 +46,5 @@ Rails.application.routes.draw do
   resources :friendships, only: [:create]
   get '/invite', to: 'invite#new', as: :invite
   post '/invite', to: 'invite#create'
+  get '/activate/:email_code', to: 'activations#update', as: :activate
 end

@@ -28,4 +28,30 @@ RSpec.describe User, type: :model do
       expect(admin.admin?).to be_truthy
     end
   end
+
+  describe 'instance methods' do
+    it '.active?' do
+      user = create(:user)
+      activation = create(:activation, user: user)
+
+      expect(user.active?).to eq(false)
+
+      activation.status = true
+      activation.save
+      user.reload
+
+      expect(user.active?).to eq(true)
+    end
+
+    it '.generate_activation' do
+      user = create(:user)
+
+      expect(user.activations.count).to eq(0)
+
+      email_code = user.generate_activation
+
+      expect(user.activations.count).to eq(1)
+      expect(user.activations.first.email_code).to eq(email_code)
+    end
+  end
 end

@@ -52,9 +52,11 @@ describe 'visitor can create an account' do
 
     link_to_click = link[begin_uri..-1].gsub('"','')
 
-    # binding.pry
+    visit '/activate/123456'
+    expect(page).to have_content('Sorry, invalid activation code entered.')
 
     visit link_to_click
+
     activation_email_code = Activation.first.email_code
     # visit activation_path(activation_email_code)
 

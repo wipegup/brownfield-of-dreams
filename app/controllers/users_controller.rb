@@ -12,8 +12,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      email_code = @user.generate_activation
-      ActivationMailer.activation(@user, email_code).deliver_now
+      ActivationMailer.activation(@user, @user.generate_activation).deliver_now
 
       session[:user_id] = @user.id
       flash[:notice] = "Logged in as #{@user.email}"
@@ -23,7 +22,6 @@ class UsersController < ApplicationController
       render :new
     end
   end
-
 
   private
 

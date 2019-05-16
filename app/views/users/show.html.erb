@@ -56,7 +56,7 @@
           <%= link_to follower.name, follower.link%>
           <% if follower.user_id%>
             <% if current_user.not_friends_with(follower.github_uid) %>
-              <%= link_to "Add as Friend", friendships_path(params:{github_uid: follower.github_uid}), method: :post %>
+              <%= button_to "Add as Friend", friendships_path(params:{github_uid: follower.github_uid}) %>
             <% else %>
               is a Friend
             <%end%>
@@ -71,7 +71,7 @@
           <%= link_to following.name, following.link%>
           <% if following.user_id%>
             <% if current_user.not_friends_with(following.github_uid) %>
-              <%= link_to "Add as Friend", friendships_path(params:{github_uid: following.github_uid}), method: :post %>
+              <%= button_to "Add as Friend", friendships_path(params:{github_uid: following.github_uid}) %>
             <% else %>
               is a Friend
             <%end%>

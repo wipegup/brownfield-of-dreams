@@ -74,9 +74,9 @@ describe 'A registered user', :vcr do
       followers = all('.follower-link')
       followers.each do |f|
         if f.text.include?('NoAccount')
-          expect(f).not_to have_link('Add as Friend')
+          expect(f).not_to have_button('Add as Friend')
         else
-          expect(f).to have_link('Add as Friend')
+          expect(f).to have_button('Add as Friend')
         end
       end
     end
@@ -87,9 +87,9 @@ describe 'A registered user', :vcr do
       followers = all('.follower-link')
       followers.each do |f|
         if f.text.include?('NoAccount')
-          expect(f).not_to have_link('Add as Friend')
+          expect(f).not_to have_button('Add as Friend')
         else
-          expect(f).to have_link('Add as Friend')
+          expect(f).to have_button('Add as Friend')
         end
       end
     end

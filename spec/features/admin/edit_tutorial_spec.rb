@@ -20,6 +20,16 @@ describe 'An Admin' do
 
       fill_in 'video[title]', with: 'How to tie your shoes.'
       fill_in 'video[description]', with: 'Over, under, around and through'
+      fill_in 'video[video_id]', with: '1'
+
+      click_on 'Create Video'
+
+      expect(page).to have_content('Unable to create video')
+
+      click_on 'Add Video'
+
+      fill_in 'video[title]', with: 'How to tie your shoes.'
+      fill_in 'video[description]', with: 'Over, under, around and through'
       fill_in 'video[video_id]', with: 'J7ikFUlkP_k'
       click_on 'Create Video'
 
@@ -74,7 +84,5 @@ describe 'An Admin' do
         expect(page).not_to have_content(@tutorial.title)
       end
     end
-
-    scenario 'by moving videos around by dragging them'
   end
 end
